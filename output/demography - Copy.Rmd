@@ -1,0 +1,60 @@
+---
+title: "demography"
+author: "Fahmida Akter"
+date: "11/29/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## load packages
+```{r load packages}
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(here)
+
+```
+## reading in the same data
+```{r read in data}
+demography_new <- read_csv("C:/Users/user/Desktop/Input folder/deprivation/demography.csv")
+
+## plotting
+```
+```{r}
+demography_new %>%
+  ggplot()
+
+## Scatterplot
+```
+```{r}
+demography_new %>%
+  ggplot() +
+  geom_point(aes(x = age, y =height ))
+# aes stands for "aesthetic"
+
+## Box plot
+```
+```{r}
+demography_new %>%
+   mutate(sex = as.character(sex),
+         age = as.character(age)) %>%
+  ggplot() +
+  geom_boxplot(aes(x = age, y = height, colour = sex)) + 
+  theme_bw()
+```
+
+## Bar plot
+How many subjects were most deprived?
+```{r}
+
+demography_new %>%
+  mutate(deprivation = as.character(deprivation)) %>%
+  ggplot() + 
+  geom_bar(aes(x = deprivation))  
+# by default, the y variable is the count of the x (in this case, number of most deprived)
+
+```
+
